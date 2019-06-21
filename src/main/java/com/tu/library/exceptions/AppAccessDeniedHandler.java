@@ -31,7 +31,8 @@ public class AppAccessDeniedHandler implements AccessDeniedHandler {
                     + httpServletRequest.getRequestURI());
         }
 
-        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
+        //add here redirect page
+        httpServletResponse.sendRedirect(httpServletRequest.getContextPath());
 
     }
 }

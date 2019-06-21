@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/security/registration").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN")
+                .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(bCryptPasswordEncoder())
                 .withUser("admin")
                 .password(admin)
-                .authorities("ROLE_ADMIN");
+                .roles("ADMIN");
 
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
