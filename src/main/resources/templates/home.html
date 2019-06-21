@@ -1,82 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="container-fluid">
-        <h1>Library</h1>
+<div class="container-fluid">
+    <h1>Library</h1>
 
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#home">Available Books</a></li>
-            <li><a data-toggle="tab" href="#menu1">Taken Books</a></li>
-            <li><a data-toggle="tab" href="#menu2">Account Settings</a></li>
-        </ul>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Available Books</a></li>
+        <li><a data-toggle="tab" href="#menu1">Taken Books</a></li>
+        <li><a data-toggle="tab" href="#menu2">Account Settings</a></li>
+    </ul>
 
-        <div class="tab-content">
-            <div id="home" class="tab-pane fade in active">
-                <h3>Marketplace</h3>
-                <table class="table">
-                    <thead>
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <h3>Marketplace</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Published</th>
+                    <th scope="col">Take</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <th:block th:each="book : ${allBooks}">
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Author</th>
-                        <th scope="col">Published</th>
-                        <th scope="col">Take</th>
+                        <th th:text="${book.id}" scope="row">...</th>
+                        <td th:text="${book.title}">...</td>
+                        <td th:text="${book.author}">...</td>
+                        <td th:text="${book.publishDate}">...</td>
+                        <td>Take</td>
                     </tr>
-                    </thead>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <h3>User Books</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Return Date</th>
+                    <th scope="col">Return</th>
+                </tr>
+                </thead>
 
-                    <tbody>
-                    <th:block th:each="book : ${allBooks}">
-                        <tr>
-                            <th th:text="${book.id}" scope="row">...</th>
-                            <td th:text="${book.title}">...</td>
-                            <td th:text="${book.author}">...</td>
-                            <td th:text="${book.publishDate}">...</td>
-                            <td>Take</td>
-                        </tr>
-                    </th:block>
-                    </tbody>
-                </table>
-            </div>
-            <div id="menu1" class="tab-pane fade">
-                <h3>User Books</h3>
-                <table class="table">
-                    <thead>
+                <tbody>
+                <th:block th:each="detail : ${details}">
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Return Date</th>
-                        <th scope="col">Return</th>
+                        <th th:text="${detail.book.id}" scope="row">...</th>
+                        <td th:text="${detail.book.title}">...</td>
+                        <td th:text="${detail.returnDate}">...</td>
+                        <td>Return</td>
                     </tr>
-                    </thead>
-
-                    <tbody>
-                    <th:block th:each="detail : ${details}">
-                        <tr>
-                            <th th:text="${detail.book.id}" scope="row">...</th>
-                            <td th:text="${detail.book.title}">...</td>
-                            <td th:text="${detail.returnDate}">...</td>
-                            <td>Return</td>
-                        </tr>
-                    </th:block>
-                    </tbody>
-                </table>
-            </div>
-            <div id="menu2" class="tab-pane fade">
-                <h3>Account Settings</h3>
-                <a class="btn btn-default" href="/logout">Logout</a>
-            </div>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <h3>Account Settings</h3>
+            <a th:if="${#httpServletRequest.isUserInRole('ADMIN')}"
+               class="btn btn-default" href="/admin">Admin page</a>
+            <a class="btn btn-default" href="/logout">Logout</a>
         </div>
     </div>
-<!--&lt;!&ndash;TESTING&ndash;&gt;-->
-<!--<div>-->
-<!--</div>-->
+</div>
 </body>
 </html>
