@@ -4,6 +4,9 @@ import com.tu.library.entity.User;
 import com.tu.library.repositories.BookRepository;
 import com.tu.library.repositories.TakenDetailsRepository;
 import com.tu.library.repositories.UserRepository;
+import com.tu.library.services.BookService;
+import com.tu.library.services.TakenDetailsService;
+import com.tu.library.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,27 +18,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class MainController {
+    private final UserDetailsServiceImpl userDetailsService;
+    private final BookService bookService;
+    private final TakenDetailsService detailsService;
 
-    private final UserRepository userRepo;
-
-    private final BookRepository bookRepo;
-
-    private final TakenDetailsRepository detailsRepo;
-
-    @Autowired
-    public MainController(UserRepository userRepo, BookRepository bookRepo, TakenDetailsRepository detailsRepo) {
-        this.userRepo = userRepo;
-        this.bookRepo = bookRepo;
-        this.detailsRepo = detailsRepo;
+    public MainController(UserDetailsServiceImpl userDetailsService, BookService bookService, TakenDetailsService detailsService) {
+        this.userDetailsService = userDetailsService;
+        this.bookService = bookService;
+        this.detailsService = detailsService;
     }
+
 
     @GetMapping("/")
     public String home(Model model) {
         Authentication auth  = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepo.findByName(auth.getName());
+        User user = userDetailsService.findByName(auth.getName());
 
-        model.addAttribute("allBooks", bookRepo.findBooksByStatus(false));
-        model.addAttribute("details", detailsRepo.findAllByUser(user));
+        model.addAttribute("allBooks", bookService.findBooksByStatus(false));
+        model.addAttribute("details", detailsService.findAllByUser(user));
 
         return "home";
     }

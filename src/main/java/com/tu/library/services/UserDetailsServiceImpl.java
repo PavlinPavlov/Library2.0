@@ -28,4 +28,14 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
         return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), grantedAuthorities);
     }
+
+    @Transactional(readOnly = true)
+    public User findByName(String name) {
+        return userRepository.findByName(name);
+    }
+
+    @Transactional
+    public void save(User user) {
+        userRepository.save(user);
+    }
 }

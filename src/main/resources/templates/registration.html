@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Registration Form</title>
 
@@ -16,15 +16,19 @@
             <form action="/security/registration" method="post">
                 <div class="form-group">
                     <label for="inputUsername">Username</label>
-                    <input name="username" type="text" class="form-control" id="inputUsername" placeholder="Username">
+                    <input name="username" type="text" class="form-control required" id="inputUsername" placeholder="Username">
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">Password</label>
-                    <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    <input name="password" type="password" class="form-control required" id="inputPassword" placeholder="Password">
                 </div>
                 <button type="submit" class="btn btn-primary">Register</button>
                 <a href="/security/login" class="btn btn-info" role="button">Log in page</a>
             </form>
+
+            <div th:if="${status == 'success'}" class="alert alert-success text-center" role="alert">Registration successful!</div>
+            <div th:if="${status == 'takenUsername'}" class="alert alert-danger text-center" role="alert">Username taken!</div>
+            <div th:if="${status == 'invalid'}" class="alert alert-danger text-center" role="alert">Invalid username or password!</div>
         </div>
     </div>
 </body>
