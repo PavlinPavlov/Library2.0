@@ -2,13 +2,30 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Registration Form</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <h1>Register</h1>
-    <form action="/security/registration" method="post">
-        <input name="name" type="text" /> <br/>
-        <input name="password" type="password" /> <br/>
-        <input value="Register" type="submit">
-    </form>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+            <h1 class="page-header font-weight-bold">Register</h1>
+            <form action="/security/registration" method="post">
+                <div class="form-group">
+                    <label for="inputUsername">Username</label>
+                    <input name="username" type="text" class="form-control" id="inputUsername" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+                <a href="/security/login" class="btn btn-info" role="button">Log in page</a>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

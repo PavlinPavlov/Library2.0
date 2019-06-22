@@ -26,8 +26,8 @@ public class SecurityController {
     }
 
     @PostMapping("/registration")
-    public String register(@RequestParam("name") String name, @RequestParam("password") String password) {
-        userRepo.save(new User(name, bCryptPasswordEncoder.encode(password)));
+    public String register(@RequestParam("username") String username, @RequestParam("password") String password) {
+        userRepo.save(new User(username, bCryptPasswordEncoder.encode(password)));
         return "registration";
     }
 
